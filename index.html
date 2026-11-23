@@ -4,66 +4,234 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>مانیتور آپشن | نصب مانیتور، تعمیر مانیتور و نصب آپشن خودرو</title>
-<meta name="description" content="مانیتور آپشن؛ نصب مانیتور خودرو، تعمیر مانیتور خودرو و نصب آپشن خودرو. فروش و نصب دوربین دنده‌عقب، دوربین ثبت وقایع و تجهیزات جانبی خودرو.">
+<title>مانیتور آپشن | نصب مانیتور و تعمیرات خودرو</title>
+<meta name="description" content="مانیتور آپشن؛ نصب مانیتور خودرو، تعمیر مانیتور، تعمیر سیستم صوتی و نصب دوربین و آپشن خودرو در تهران.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://mahdibashtin77-collab.github.io/monitor-option/">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="مانیتور آپشن | نصب و تعمیر تجهیزات خودرو">
-<meta property="og:description" content="نصب مانیتور خودرو، تعمیر مانیتور خودرو و نصب آپشن خودرو.">
 <meta name="theme-color" content="#090909">
 
 <style>
-:root{--gold:#d9b45b;--gold2:#f3d88d;--bg:#090909;--panel:#151515;--muted:#c9c3b6}
+:root{
+--gold:#d9b45b;
+--gold2:#f3d88d;
+--bg:#090909;
+--muted:#c9c3b6;
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:#f8f5ed;font-family:Tahoma,Arial,sans-serif;line-height:1.9}
+body{
+margin:0;
+background:var(--bg);
+color:#f8f5ed;
+font-family:Tahoma,Arial,sans-serif;
+line-height:1.9;
+}
 a{color:inherit;text-decoration:none}
 .wrap{width:min(1100px,92%);margin:auto}
-header{background:radial-gradient(ellipse at 50% 0%,#3b2d13,#15110a 35%,#090909 75%);border-bottom:1px solid #51401e}
-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;flex-wrap:wrap}
-.logo{font-weight:900;letter-spacing:2px;color:var(--gold);font-size:20px}
-nav a{color:#e7dfcf;font-size:14px;margin:0 7px}
-.hero{text-align:center;padding:55px 0 62px}
-.kicker{color:var(--gold);font-size:13px;letter-spacing:3px}
-h1{font-size:clamp(27px,5vw,46px);line-height:1.6;margin:10px auto;max-width:850px}
-.hero p{max-width:720px;margin:10px auto 22px;color:var(--muted)}
-.btn{display:inline-block;background:var(--gold);color:#17120a;padding:11px 23px;border-radius:9px;font-weight:bold;margin:6px}
-.btn.outline{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+
+header{
+background:radial-gradient(ellipse at 50% 0%,#3b2d13,#15110a 35%,#090909 75%);
+border-bottom:1px solid #51401e;
+}
+nav{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+padding:18px 0;
+flex-wrap:wrap;
+}
+.logo{
+font-weight:900;
+letter-spacing:2px;
+color:var(--gold);
+font-size:20px;
+}
+nav a{
+color:#e7dfcf;
+font-size:14px;
+margin:0 7px;
+}
+.hero{
+text-align:center;
+padding:45px 0 25px;
+}
+.kicker{
+color:var(--gold);
+font-size:13px;
+letter-spacing:3px;
+}
+h1{
+font-size:clamp(27px,5vw,46px);
+line-height:1.6;
+margin:10px auto;
+max-width:850px;
+}
+.hero p{
+max-width:720px;
+margin:10px auto 22px;
+color:var(--muted);
+}
+.btn{
+display:inline-block;
+background:var(--gold);
+color:#17120a;
+padding:11px 23px;
+border-radius:9px;
+font-weight:bold;
+margin:6px;
+}
+.btn.outline{
+background:transparent;
+color:var(--gold);
+border:1px solid var(--gold);
+}
+
+/* بنر اصلی */
+.site-banner{
+width:100%;
+display:block;
+border-radius:14px;
+margin:15px 0 25px;
+border:1px solid #51401e;
+}
+
+/* کاور دسته‌بندی‌ها */
+.cover-grid{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:14px;
+margin:20px 0 30px;
+}
+.cover-grid a{
+display:block;
+overflow:hidden;
+border-radius:13px;
+border:1px solid #51401e;
+background:#111;
+}
+.cover-grid img{
+width:100%;
+display:block;
+transition:transform .3s;
+}
+.cover-grid a:hover img{
+transform:scale(1.03);
+}
+
 main{padding:28px 0 55px}
-section{margin:22px 0;padding:25px;background:linear-gradient(145deg,#191919,#101010);border:1px solid #3b301d;border-radius:16px}
-h2{color:var(--gold2);font-size:23px;margin:0 0 8px}
-.sub{color:var(--muted);margin:0 0 18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.card{background:#0c0c0c;border:1px solid #3b3325;border-radius:13px;overflow:hidden}
-.card img{display:block;width:100%;height:210px;object-fit:cover;background:#222}
+section{
+margin:22px 0;
+padding:25px;
+background:linear-gradient(145deg,#191919,#101010);
+border:1px solid #3b301d;
+border-radius:16px;
+}
+h2{
+color:var(--gold2);
+font-size:23px;
+margin:0 0 8px;
+}
+.sub{
+color:var(--muted);
+margin:0 0 18px;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+.card{
+background:#0c0c0c;
+border:1px solid #3b3325;
+border-radius:13px;
+overflow:hidden;
+}
+.card img{
+display:block;
+width:100%;
+height:210px;
+object-fit:cover;
+background:#222;
+}
 .cardbody{padding:13px}
-.card h3{color:var(--gold2);font-size:16px;margin:0 0 5px}
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.feature{padding:15px;border:1px solid #383020;border-radius:10px;background:#101010}
-.feature b{color:var(--gold2);display:block}
-.contact{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
-.contactbox{background:#0d0d0d;border:1px solid #51401e;border-radius:12px;padding:18px}
-.phone{font-size:clamp(20px,4vw,28px);font-weight:bold;direction:ltr;text-align:right;color:var(--gold2);display:block}
+.card h3{
+color:var(--gold2);
+font-size:16px;
+margin:0 0 5px;
+}
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+gap:12px;
+}
+.feature{
+padding:15px;
+border:1px solid #383020;
+border-radius:10px;
+background:#101010;
+}
+.feature b{
+color:var(--gold2);
+display:block;
+}
+.contact{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+align-items:center;
+}
+.contactbox{
+background:#0d0d0d;
+border:1px solid #51401e;
+border-radius:12px;
+padding:18px;
+}
+.phone{
+font-size:clamp(20px,4vw,28px);
+font-weight:bold;
+direction:ltr;
+text-align:right;
+color:var(--gold2);
+display:block;
+}
 .note{font-size:12px;color:#a9a294}
-footer{border-top:1px solid #40351f;text-align:center;padding:25px 0;color:#aaa;font-size:13px}
+footer{
+border-top:1px solid #40351f;
+text-align:center;
+padding:25px 0;
+color:#aaa;
+font-size:13px;
+}
+
 @media(max-width:650px){
 .contact{grid-template-columns:1fr}
 nav{justify-content:center}
-nav .links{text-align:center;width:100%}
-.hero{padding:38px 0 45px}
+nav .links{
+text-align:center;
+width:100%;
+}
+.hero{padding:35px 0 20px}
 section{padding:18px}
-.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:9px;
+}
 .card img{height:145px}
 .card h3{font-size:14px}
+.cover-grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:9px;
+}
 }
 </style>
 </head>
 
 <body>
+
 <header>
 <div class="wrap">
+
 <nav>
 <div class="logo">MONITOR OPTION</div>
 <div class="links">
@@ -82,6 +250,27 @@ section{padding:18px}
 <a class="btn" href="#monitors">مشاهده نمونه‌کارها</a>
 <a class="btn outline" href="#contact">تماس و استعلام قیمت</a>
 </div>
+
+<img class="site-banner"
+src="banner-monitor-option.png"
+alt="بنر مانیتور آپشن">
+
+<div class="cover-grid">
+
+<a href="#cameras">
+<img src="cover_doorbin.png" alt="دوربین خودرو">
+</a>
+
+<a href="#cameras">
+<img src="cover_sabt_vaghaye.png" alt="دوربین ثبت وقایع">
+</a>
+
+<a href="#repairs">
+<img src="cover_tamirat.png" alt="تعمیرات خودرو">
+</a>
+
+</div>
+
 </div>
 </header>
 
@@ -90,26 +279,76 @@ section{padding:18px}
 <section id="monitors">
 <h2>نمونه مانیتورهای نصب‌شده</h2>
 <p class="sub">نمونه‌ای از پروژه‌های نصب مانیتور خودرو</p>
+
 <div class="grid">
-<article class="card"><img src="20260823_175707.jpg" alt="نمونه نصب مانیتور خودرو"><div class="cardbody"><h3>مانیتور خودرو</h3></div></article>
-<article class="card"><img src="20260901_115306.jpg" alt="نمونه مانیتور خودرو"><div class="cardbody"><h3>نصب مانیتور خودرو</h3></div></article>
-<article class="card"><img src="20261122_132224.jpg" alt="نمونه نصب مانیتور"><div class="cardbody"><h3>نمونه نصب مانیتور</h3></div></article>
-<article class="card"><img src="20261023_152134.jpg" alt="نمونه نصب مانیتور"><div class="cardbody"><h3>نمونه نصب مانیتور</h3></div></article>
-<article class="card"><img src="20261013_113628.jpg" alt="نمونه نصب مانیتور"><div class="cardbody"><h3>نمونه نصب مانیتور</h3></div></article>
-<article class="card"><img src="20260925_131512.jpg" alt="نمونه نصب مانیتور"><div class="cardbody"><h3>نمونه نصب مانیتور</h3></div></article>
-<article class="card"><img src="20260916_173634.jpg" alt="نمونه نصب مانیتور"><div class="cardbody"><h3>نمونه نصب مانیتور</h3></div></article>
-<article class="card"><img src="20260907_162620.jpg" alt="نمونه نصب مانیتور"><div class="cardbody"><h3>نمونه نصب مانیتور</h3></div></article>
+<article class="card">
+<img src="20260823_175707.jpg" alt="نمونه نصب مانیتور خودرو">
+<div class="cardbody"><h3>مانیتور خودرو</h3></div>
+</article>
+
+<article class="card">
+<img src="20260901_115306.jpg" alt="نمونه مانیتور خودرو">
+<div class="cardbody"><h3>نصب مانیتور خودرو</h3></div>
+</article>
+
+<article class="card">
+<img src="20261122_132224.jpg" alt="نمونه نصب مانیتور">
+<div class="cardbody"><h3>نمونه نصب مانیتور</h3></div>
+</article>
+
+<article class="card">
+<img src="20261023_152134.jpg" alt="نمونه نصب مانیتور">
+<div class="cardbody"><h3>نمونه نصب مانیتور</h3></div>
+</article>
+
+<article class="card">
+<img src="20261013_113628.jpg" alt="نمونه نصب مانیتور">
+<div class="cardbody"><h3>نمونه نصب مانیتور</h3></div>
+</article>
+
+<article class="card">
+<img src="20260925_131512.jpg" alt="نمونه نصب مانیتور">
+<div class="cardbody"><h3>نمونه نصب مانیتور</h3></div>
+</article>
+
+<article class="card">
+<img src="20260916_173634.jpg" alt="نمونه نصب مانیتور">
+<div class="cardbody"><h3>نمونه نصب مانیتور</h3></div>
+</article>
+
+<article class="card">
+<img src="20260907_162620.jpg" alt="نمونه نصب مانیتور">
+<div class="cardbody"><h3>نمونه نصب مانیتور</h3></div>
+</article>
 </div>
 </section>
 
 <section id="cameras">
 <h2>انواع دوربین خودرو</h2>
 <p class="sub">دوربین تک‌کاره، دوربین ثبت وقایع و دوربین دنده‌عقب</p>
+
 <div class="grid">
-<article class="card"><img src="IMG_add50f05-b86a-48ea-a105-a5fe112391f7.jpg" alt="دوربین تک‌کاره"><div class="cardbody"><h3>دوربین تک‌کاره</h3></div></article>
-<article class="card"><img src="IMG_a1ed6533-88f2-4127-ad20-7e9997c88795.jpg" alt="دوربین ثبت وقایع خودرو"><div class="cardbody"><h3>دوربین ثبت وقایع</h3></div></article>
-<article class="card"><img src="IMG_9245167f-7783-4cc1-a4ac-b5141f4e1c94.jpg" alt="دوربین دنده عقب خودرو"><div class="cardbody"><h3>دوربین دنده‌عقب</h3></div></article>
-<article class="card"><img src="IMG_490daa90-dd61-433e-95b7-c64ef78da013.jpg" alt="مدل دوربین دنده عقب"><div class="cardbody"><h3>دوربین دنده‌عقب</h3></div></article>
+
+<article class="card">
+<img src="IMG_add50f05-b86a-48ea-a105-a5fe112391f7.jpg" alt="دوربین تک‌کاره">
+<div class="cardbody"><h3>دوربین تک‌کاره</h3></div>
+</article>
+
+<article class="card">
+<img src="IMG_a1ed6533-88f2-4127-ad20-7e9997c88795.jpg" alt="دوربین ثبت وقایع خودرو">
+<div class="cardbody"><h3>دوربین ثبت وقایع</h3></div>
+</article>
+
+<article class="card">
+<img src="IMG_9245167f-7783-4cc1-a4ac-b5141f4e1c94.jpg" alt="دوربین دنده عقب خودرو">
+<div class="cardbody"><h3>دوربین دنده‌عقب</h3></div>
+</article>
+
+<article class="card">
+<img src="IMG_490daa90-dd61-433e-95b7-c64ef78da013.jpg" alt="مدل دوربین دنده عقب">
+<div class="cardbody"><h3>دوربین دنده‌عقب</h3></div>
+</article>
+
 </div>
 </section>
 
@@ -118,6 +357,7 @@ section{padding:18px}
 <p class="sub">تعمیر مانیتور و سیستم صوتی خودرو</p>
 
 <h2>تعمیر مانیتور خودرو</h2>
+
 <div class="grid">
 
 <article class="card">
@@ -138,6 +378,7 @@ section{padding:18px}
 
 <div id="audio" style="margin-top:25px">
 <h2>تعمیر سیستم صوتی</h2>
+
 <div class="grid">
 <article class="card">
 <img src="InShot_20261122_134247947.jpg" alt="تعمیر سیستم صوتی هیوندای و کیا">
@@ -146,48 +387,84 @@ section{padding:18px}
 </div>
 </article>
 </div>
-</div>
 
+</div>
 </section>
 
 <section id="services">
 <h2>خدمات مانیتور آپشن</h2>
+
 <div class="features">
-<div class="feature"><b>نصب مانیتور خودرو</b><span>انتخاب و نصب مانیتور متناسب با خودرو</span></div>
-<div class="feature"><b>تعمیر مانیتور خودرو</b><span>بررسی ایراد و اعلام امکان تعمیر</span></div>
-<div class="feature"><b>نصب آپشن خودرو</b><span>نصب و راه‌اندازی تجهیزات جانبی خودرو</span></div>
-<div class="feature"><b>CarPlay و Android Auto</b><span>راه‌اندازی در دستگاه‌های پشتیبانی‌کننده</span></div>
-<div class="feature"><b>نصب دوربین و سنسور</b><span>دوربین دنده‌عقب، ثبت وقایع و سنسور پارک</span></div>
-<div class="feature"><b>نصب دوربین ۳۶۰ درجه</b><span>نصب و راه‌اندازی سیستم دوربین ۳۶۰ درجه خودرو</span></div>
+
+<div class="feature">
+<b>نصب مانیتور خودرو</b>
+<span>انتخاب و نصب مانیتور متناسب با خودرو</span>
+</div>
+
+<div class="feature">
+<b>تعمیر مانیتور خودرو</b>
+<span>بررسی ایراد و اعلام امکان تعمیر</span>
+</div>
+
+<div class="feature">
+<b>نصب آپشن خودرو</b>
+<span>نصب و راه‌اندازی تجهیزات جانبی خودرو</span>
+</div>
+
+<div class="feature">
+<b>CarPlay و Android Auto</b>
+<span>راه‌اندازی در دستگاه‌های پشتیبانی‌کننده</span>
+</div>
+
+<div class="feature">
+<b>نصب دوربین و سنسور</b>
+<span>دوربین دنده‌عقب، ثبت وقایع و سنسور پارک</span>
+</div>
+
+<div class="feature">
+<b>نصب دوربین ۳۶۰ درجه</b>
+<span>نصب و راه‌اندازی سیستم دوربین ۳۶۰ درجه خودرو</span>
+</div>
+
 </div>
 </section>
 
 <section>
 <h2>خدمات نصب در تهران</h2>
-<p class="sub">امکان هماهنگی نصب در محل کار یا محل مشتری در تهران وجود دارد. زمان و محل انجام خدمات پیش از مراجعه هماهنگ می‌شود.</p>
+<p class="sub">
+امکان هماهنگی نصب در محل کار یا محل مشتری در تهران وجود دارد.
+زمان و محل انجام خدمات پیش از مراجعه هماهنگ می‌شود.
+</p>
 </section>
 
 <section id="contact">
 <h2>تماس با مانیتور آپشن</h2>
+
 <div class="contact">
+
 <div>
 <p class="sub">برای مشاوره، استعلام قیمت و هماهنگی نصب تماس بگیرید.</p>
 <a class="btn" href="tel:09398789167">تماس با ما</a>
 <a class="btn outline" href="https://www.instagram.com/monitor_option/" target="_blank" rel="noopener">اینستاگرام</a>
 </div>
+
 <div class="contactbox">
 <div style="color:#aaa;font-size:13px">مسئول فروش و هماهنگی</div>
 <strong style="font-size:21px;color:#f3d88d">مهدی باشتین</strong>
 <a class="phone" href="tel:09398789167">09398789167</a>
 <div class="note">مانیتور آپشن</div>
 </div>
+
 </div>
 </section>
 
 </main>
 
 <footer>
-<div class="wrap">MONITOR OPTION | مانیتور آپشن · نصب مانیتور، تعمیر مانیتور و نصب آپشن خودرو</div>
+<div class="wrap">
+MONITOR OPTION | مانیتور آپشن · نصب مانیتور، تعمیر مانیتور و نصب آپشن خودرو
+</div>
 </footer>
+
 </body>
 </html>
