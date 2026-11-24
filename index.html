@@ -26,7 +26,9 @@ header{background:radial-gradient(ellipse at 50% 0%,#3b2d13,#15110a 35%,#090909 
 nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;flex-wrap:wrap}
 .logo{font-weight:900;letter-spacing:2px;color:var(--gold);font-size:20px}
 nav a{color:#e7dfcf;font-size:14px;margin:0 7px}
-.hero{text-align:center;padding:55px 0 62px}
+nav .top-contact{background:var(--gold);color:#17120a;padding:8px 17px;border-radius:8px;font-weight:bold}
+.hero{text-align:center;padding:35px 0 45px}
+.hero-banner{display:block;width:100%;max-width:950px;max-height:320px;object-fit:cover;border-radius:15px;margin:0 auto 25px;border:1px solid #51401e}
 .kicker{color:var(--gold);font-size:13px;letter-spacing:3px}
 h1{font-size:clamp(27px,5vw,46px);line-height:1.6;margin:10px auto;max-width:850px}
 .hero p{max-width:720px;margin:10px auto 22px;color:var(--muted)}
@@ -53,11 +55,12 @@ footer{border-top:1px solid #40351f;text-align:center;padding:25px 0;color:#aaa;
 .contact{grid-template-columns:1fr}
 nav{justify-content:center}
 nav .links{text-align:center;width:100%}
-.hero{padding:38px 0 45px}
+.hero{padding:28px 0 35px}
 section{padding:18px}
 .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .card img{height:145px}
 .card h3{font-size:14px}
+.hero-banner{max-height:200px}
 }
 </style>
 </head>
@@ -73,10 +76,12 @@ section{padding:18px}
 <a href="#repairs">تعمیرات</a>
 <a href="#services">خدمات</a>
 <a href="#contact">تماس</a>
+<a class="top-contact" href="tel:09398789167">تماس</a>
 </div>
 </nav>
 
 <div class="hero">
+<img class="hero-banner" src="banner-monitor-option.png" alt="بنر اصلی مانیتور آپشن">
 <div class="kicker">MONITOR OPTION</div>
 <h1>تعمیرات و نصب آپشن</h1>
 <p>معرفی نمونه‌کارهای نصب مانیتور، دوربین و تجهیزات جانبی خودرو؛ همراه با خدمات تعمیر مانیتور و سیستم صوتی.</p>
@@ -114,7 +119,7 @@ section{padding:18px}
 </section>
 
 <section id="repairs">
-<h2>تعمیر مانیتور خودرو</h2>
+<h2>تعمیرات مانیتور و سیستم تصویری خودرو</h2>
 <p class="sub">بررسی و تعمیر مانیتور و سیستم‌های تصویری خودرو</p>
 <div class="grid">
 <article class="card"><img src="20261030_133905.jpg" alt="تعمیر مانیتور خودرو"><div class="cardbody"><h3>تعمیر مانیتور خودرو</h3></div></article>
