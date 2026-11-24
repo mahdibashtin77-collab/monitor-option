@@ -119,13 +119,77 @@ async function login() {
 }
 
 async function checkSession() {
-  const {data} = await db.auth.getSession();
+  const { data } = await db.auth.getSession();
+
+  const isRecovery =
+    window.location.hash.includes("type=recovery");
+
+  if (isRecovery) {
+    $("loginPanel").classList.add("hidden");
+    $("adminPanel").classList.add("hidden");
+
+    let box = document.getElementById("resetPanel");
+
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "resetPanel";
+      box.className = "panel";
+      box.innerHTML = `
+        <h3>تعیین رمز عبور جدید</h3>
+        <input id="newPassword" type="password"
+          placeholder="رمز جدید">
+        <input id="confirmPassword" type="password"
+          placeholder="تکرار رمز جدید">
+        <button id="changePasswordBtn">ثبت رمز جدید</button>
+        <p id="resetMessage"></p>
+      `;
+      document.querySelector(".container").appendChild(box);
+
+      document.getElementById("changePasswordBtn")
+        .addEventListener("click", changePassword);
+    }
+
+    return;
+  }
+
   const loggedIn = !!data.session;
 
   $("loginPanel").classList.toggle("hidden", loggedIn);
   $("adminPanel").classList.toggle("hidden", !loggedIn);
 
   if (loggedIn) await loadProducts();
+}
+
+async function changePassword() {
+  const password = $("newPassword").value;
+  const confirm = $("confirmPassword").value;
+
+  if (password.length < 8) {
+    message("resetMessage", "رمز باید حداقل ۸ کاراکتر باشد.");
+    return;
+  }
+
+  if (password !== confirm) {
+    message("resetMessage", "رمزها یکسان نیستند.");
+    return;
+  }
+
+  message("resetMessage", "در حال ثبت رمز جدید...");
+
+  const { error } = await db.auth.updateUser({
+    password: password
+  });
+
+  if (error) {
+    message("resetMessage", "خطا: " + error.message);
+    return;
+  }
+
+  message("resetMessage", "رمز جدید با موفقیت ثبت شد.");
+
+  setTimeout(() => {
+    window.location.href = "/admin.html";
+  }, 1500);
 }
 
 async function logout() {
