@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://monitoroption.ir/</loc>
-  </url>
+  <url><loc>https://monitoroption.ir/</loc></url>
+  <url><loc>https://monitoroption.ir/car-monitors.html</loc></url>
+  <url><loc>https://monitoroption.ir/install-monitor.html</loc></url>
+  <url><loc>https://monitoroption.ir/repair-monitor.html</loc></url>
+  <url><loc>https://monitoroption.ir/cameras.html</loc></url>
+  <url><loc>https://monitoroption.ir/portfolio.html</loc></url>
+  <url><loc>https://monitoroption.ir/contact.html</loc></url>
 </urlset>
