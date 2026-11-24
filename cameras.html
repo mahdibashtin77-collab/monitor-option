@@ -4,142 +4,273 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>انواع دوربین خودرو | مانیتور آپشن</title>
-<meta name="description" content="معرفی و نصب دوربین دنده عقب، دوربین ثبت وقایع و دوربین ۳۶۰ درجه خودرو.">
-<link rel="canonical" href="https://monitoroption.ir/cameras.html">
-<meta name="robots" content="index,follow">
+<title>دوربین خودرو | مانیتور آپشن</title>
+<meta name="description" content="انواع دوربین دنده عقب، دوربین ثبت وقایع و دوربین ۳۶۰ درجه خودرو در مانیتور آپشن.">
 
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;background:#090909;color:#fff;
- font-family:Tahoma,Arial,sans-serif;line-height:1.9
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:#111;
+  color:#fff;
+  line-height:1.8;
 }
-.wrap{width:min(1080px,92%);margin:auto}
 header{
- background:radial-gradient(ellipse at top,#493715,#090909 75%);
- border-bottom:1px solid #51401e;padding-bottom:25px
+  text-align:center;
+  padding:15px;
 }
-.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:15px 0;gap:12px}
-.brand{color:#d9b45b;font-weight:bold;direction:ltr}
-.links{display:flex;gap:12px;flex-wrap:wrap}
-.links a{color:#eee2c9;text-decoration:none;font-size:13px}
-.banner{display:block;width:min(720px,100%);height:auto;margin:10px auto}
-.hero{text-align:center;padding:20px 0}
-.hero h1{color:#f3d88d;font-size:32px}
-.hero p{color:#c9c3b6}
-.btn{display:inline-block;background:#d9b45b;color:#111;padding:9px 18px;border-radius:8px;text-decoration:none;margin:5px}
-main{padding:25px 0 50px}
-section{background:#151515;border:1px solid #40351f;border-radius:15px;padding:22px;margin:20px 0}
-h2{text-align:center;color:#f3d88d}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.card{background:#090909;border:1px solid #51401e;border-radius:13px;padding:12px;text-align:center}
-.card button{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer}
-.card img{width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;border-radius:9px;display:block}
-.card h3{color:#f3d88d}
-.card p{color:#c9c3b6;font-size:14px}
-.modal{display:none;position:fixed;inset:0;background:#000e;z-index:9999;align-items:center;justify-content:center;padding:15px}
-.modal.show{display:flex}
-.modal-content{position:relative;width:min(900px,100%);text-align:center}
-.modal img{max-width:100%;max-height:82vh;object-fit:contain;border:2px solid #d9b45b;border-radius:10px}
-.close{position:absolute;top:-42px;left:0;background:#d9b45b;border:0;border-radius:7px;padding:7px 16px;font-size:18px;cursor:pointer}
-footer{text-align:center;border-top:1px solid #40351f;padding:22px;color:#aaa}
-@media(max-width:600px){
- .top{justify-content:center}
- .links{justify-content:center}
- .hero h1{font-size:25px}
- section{padding:14px}
+.banner{
+  width:100%;
+  max-width:1100px;
+  display:block;
+  margin:0 auto 15px;
+  border-radius:10px;
+}
+nav{
+  text-align:center;
+  padding:12px;
+  background:#1b1b1b;
+}
+nav a{
+  color:#d6ad55;
+  text-decoration:none;
+  margin:0 9px;
+  font-size:14px;
+}
+h1{
+  text-align:center;
+  color:#d6ad55;
+  margin:25px 10px;
+}
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:15px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+}
+.card{
+  background:#1d1d1d;
+  border:1px solid #b18a3b;
+  border-radius:12px;
+  padding:12px;
+  text-align:center;
+}
+.card img{
+  width:100%;
+  border-radius:8px;
+  cursor:pointer;
+}
+.card h2{
+  color:#d6ad55;
+  font-size:18px;
+}
+.card p{
+  color:#ddd;
+  font-size:14px;
+}
+.card button{
+  background:#d6ad55;
+  color:#111;
+  border:0;
+  border-radius:7px;
+  padding:9px 18px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.modal{
+  display:none;
+  position:fixed;
+  z-index:9999;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  overflow:auto;
+  padding:25px 12px;
+}
+.modal-content{
+  max-width:850px;
+  margin:35px auto;
+  text-align:center;
+}
+.close{
+  position:fixed;
+  top:8px;
+  left:18px;
+  color:#fff;
+  font-size:38px;
+  cursor:pointer;
+  z-index:10000;
+}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+.gallery img{
+  width:100%;
+  border-radius:10px;
+  border:1px solid #d6ad55;
+  cursor:pointer;
+}
+.modal h2{
+  color:#d6ad55;
+}
+.notice{
+  color:#eee;
+  background:#252525;
+  padding:18px;
+  border-radius:10px;
+}
+footer{
+  text-align:center;
+  padding:25px;
+  color:#aaa;
 }
 </style>
 </head>
 
 <body>
-<header>
-<div class="top wrap">
-<a class="brand" href="index.html">MONITOR OPTION</a>
-<nav class="links">
-<a href="index.html">خانه</a>
-<a href="car-monitors.html">مانیتور خودرو</a>
-<a href="install-monitor.html">نصب مانیتور</a>
-<a href="repair-monitor.html">تعمیر مانیتور</a>
-<a href="cameras.html">انواع دوربین</a>
-<a href="portfolio.html">نمونه‌کارها</a>
-<a href="contact.html">تماس</a>
-</nav>
-</div>
 
-<div class="wrap">
-<img class="banner" src="banner-monitor-option.png" alt="مانیتور آپشن">
-<div class="hero">
-<div>MONITOR OPTION</div>
-<h1>انواع دوربین خودرو</h1>
-<p>معرفی و نصب انواع دوربین خودرو</p>
-<a class="btn" href="contact.html">تماس و هماهنگی</a>
-</div>
-</div>
+<header>
+  <img class="banner" src="banner-monitor-option.png" alt="مانیتور آپشن">
 </header>
 
-<main class="wrap">
-<section>
-<h2>انواع دوربین خودرو</h2>
-<div class="grid">
+<nav>
+  <a href="index.html">صفحه اصلی</a>
+  <a href="car-monitors.html">مانیتور خودرو</a>
+  <a href="install-monitor.html">نصب مانیتور</a>
+  <a href="repair-monitor.html">تعمیرات</a>
+  <a href="cameras.html">دوربین خودرو</a>
+  <a href="portfolio.html">نمونه کارها</a>
+  <a href="contact.html">تماس با ما</a>
+</nav>
 
-<article class="card">
-<button onclick="openImage('camera-reverse.png','دوربین دنده عقب')">
-<img src="camera-reverse.png" alt="کاور دوربین دنده عقب">
-</button>
-<h3>دوربین دنده‌عقب</h3>
-<p>نمایش فضای پشت خودرو هنگام حرکت با دنده‌عقب.</p>
-</article>
+<main class="container">
+  <h1>انواع دوربین خودرو</h1>
 
-<article class="card">
-<button onclick="openImage('camera-dashcam.png','دوربین ثبت وقایع')">
-<img src="camera-dashcam.png" alt="کاور دوربین ثبت وقایع">
-</button>
-<h3>دوربین ثبت وقایع</h3>
-<p>ثبت تصاویر مسیر با دستگاه دوربین مناسب.</p>
-</article>
+  <section class="cards">
 
-<article class="card">
-<button onclick="openImage('camera-360.png','دوربین ۳۶۰ درجه')">
-<img src="camera-360.png" alt="کاور دوربین ۳۶۰ درجه">
-</button>
-<h3>دوربین ۳۶۰ درجه</h3>
-<p>نمای پیرامونی خودرو در سیستم‌های سازگار.</p>
-</article>
+    <article class="card">
+      <img src="camera-reverse.png"
+           alt="دوربین دنده عقب"
+           onclick="openGallery('reverse')">
+      <h2>دوربین دنده‌عقب</h2>
+      <p>نمایش تصاویر واقعی دوربین دنده‌عقب خودرو</p>
+      <button onclick="openGallery('reverse')">مشاهده تصاویر</button>
+    </article>
 
-</div>
-</section>
+    <article class="card">
+      <img src="camera-dashcam.png"
+           alt="دوربین ثبت وقایع"
+           onclick="openGallery('dashcam')">
+      <h2>دوربین ثبت وقایع</h2>
+      <p>مشاهده نمونه تصاویر دوربین ثبت وقایع</p>
+      <button onclick="openGallery('dashcam')">مشاهده تصاویر</button>
+    </article>
+
+    <article class="card">
+      <img src="camera-360.png"
+           alt="دوربین ۳۶۰ درجه"
+           onclick="openGallery('360')">
+      <h2>دوربین ۳۶۰ درجه</h2>
+      <p>دوربین ۳۶۰ درجه خودرو</p>
+      <button onclick="openGallery('360')">مشاهده توضیحات</button>
+    </article>
+
+  </section>
 </main>
 
-<div class="modal" id="imageModal" onclick="closeImage(event)">
-<div class="modal-content">
-<button class="close" onclick="closeImage()">بستن ✕</button>
-<img id="largeImage" src="" alt="تصویر دوربین خودرو">
-</div>
+<div class="modal" id="galleryModal" onclick="closeOutside(event)">
+  <span class="close" onclick="closeGallery()">&times;</span>
+  <div class="modal-content" id="modalContent"></div>
 </div>
 
 <footer>
-مانیتور آپشن | MONITOR OPTION — نصب و تعمیر مانیتور خودرو
+  مانیتور آپشن | نصب و خدمات تجهیزات خودرو
 </footer>
 
 <script>
-function openImage(src,alt){
- const modal=document.getElementById('imageModal');
- document.getElementById('largeImage').src=src;
- document.getElementById('largeImage').alt=alt;
- modal.classList.add('show');
+const galleries = {
+  reverse: {
+    title: "تصاویر دوربین دنده‌عقب",
+    images: [
+      {
+        src: "assets/Dorbin_2_kare.jpg",
+        alt: "نمونه دوربین دنده‌عقب"
+      },
+      {
+        src: "assets/Dorbin_90_daraje.jpg",
+        alt: "نمونه دوربین ۹۰ درجه"
+      }
+    ]
+  },
+
+  dashcam: {
+    title: "تصاویر دوربین ثبت وقایع",
+    images: [
+      {
+        src: "assets/Sabt_vaghaye_70_mai.jpg",
+        alt: "نمونه دوربین ثبت وقایع"
+      },
+      {
+        src: "assets/Sabt_vaghaye%202.jpg",
+        alt: "نمونه دوم دوربین ثبت وقایع"
+      }
+    ]
+  }
+};
+
+function openGallery(type) {
+  const modal = document.getElementById("galleryModal");
+  const content = document.getElementById("modalContent");
+
+  if (type === "360") {
+    content.innerHTML = `
+      <h2>دوربین ۳۶۰ درجه</h2>
+      <p class="notice">برای این بخش هنوز تصویر نمونه محصول اضافه نشده است.</p>
+    `;
+  } else {
+    const data = galleries[type];
+
+    content.innerHTML = `
+      <h2>${data.title}</h2>
+      <div class="gallery">
+        ${data.images.map(item => `
+          <img src="${item.src}" alt="${item.alt}" loading="lazy"
+               onclick="showLargeImage('${item.src}','${item.alt}')">
+        `).join("")}
+      </div>
+    `;
+  }
+
+  modal.style.display = "block";
+  document.body.style.overflow = "hidden";
 }
-function closeImage(event){
- if(!event || event.target.id==='imageModal'){
-  document.getElementById('imageModal').classList.remove('show');
-  document.getElementById('largeImage').src='';
- }
+
+function showLargeImage(src, alt) {
+  document.getElementById("modalContent").innerHTML = `
+    <h2>${alt}</h2>
+    <img src="${src}" alt="${alt}"
+         style="width:100%;max-width:750px;border-radius:10px">
+    <p><button onclick="openGallery('reverse')">بازگشت</button></p>
+  `;
 }
-document.addEventListener('keydown',function(event){
- if(event.key==='Escape')closeImage();
-});
+
+function closeGallery() {
+  document.getElementById("galleryModal").style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
+function closeOutside(event) {
+  if (event.target.id === "galleryModal") {
+    closeGallery();
+  }
+}
 </script>
+
 </body>
 </html>
-
