@@ -1,1 +1,352 @@
 
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مدیریت محصولات | مانیتور آپشن</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#111;color:#eee;font-family:Tahoma,Arial,sans-serif;padding:20px}
+.container{max-width:950px;margin:auto}
+h1{color:#d6ad55;text-align:center}
+.panel{background:#202020;padding:18px;border-radius:12px;margin:18px 0}
+input,textarea,button{width:100%;padding:12px;margin:7px 0;border-radius:7px;border:1px solid #555;font:inherit}
+input,textarea{background:#292929;color:white}
+button{background:#c49a45;color:#111;font-weight:bold;border:0;cursor:pointer}
+button.danger{background:#a33;color:white}
+button.secondary{background:#444;color:white}
+label{display:block;margin-top:12px}
+.product{border:1px solid #555;border-radius:10px;padding:14px;margin:12px 0}
+.product img{width:90px;height:90px;object-fit:cover;border-radius:7px;margin:5px}
+.images{display:flex;flex-wrap:wrap}
+.status{color:#d6ad55}
+.hidden{display:none}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions button{flex:1;min-width:110px}
+small{color:#bbb}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>پنل مدیریت مانیتور آپشن</h1>
+
+<div class="panel" id="loginPanel">
+<h3>ورود مدیر</h3>
+<input id="email" type="email" placeholder="ایمیل مدیر">
+<input id="password" type="password" placeholder="رمز عبور">
+<button id="loginBtn">ورود به پنل</button>
+<p id="loginMessage"></p>
+</div>
+
+<div id="adminPanel" class="hidden">
+<div class="panel">
+<div class="actions">
+<button id="logoutBtn" class="secondary">خروج از حساب</button>
+<button id="refreshBtn" class="secondary">بروزرسانی محصولات</button>
+</div>
+<h3 id="formTitle">افزودن محصول جدید</h3>
+
+<input id="productId" type="hidden">
+<label>نام محصول</label>
+<input id="name" placeholder="مثلاً مانیتور اندروید">
+
+<label>برند خودرو</label>
+<input id="brand" placeholder="مثلاً پژو">
+
+<label>مدل خودرو</label>
+<input id="model" placeholder="مثلاً ۲۰۶">
+
+<label>قیمت (تومان)</label>
+<input id="price" type="number" min="0" placeholder="قیمت محصول">
+
+<label>توضیحات</label>
+<textarea id="description" rows="4" placeholder="مشخصات و توضیحات محصول"></textarea>
+
+<label>عکس‌های محصول (امکان انتخاب چند عکس)</label>
+<input id="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+<small>حداکثر حجم هر عکس ۱۰ مگابایت است.</small>
+
+<label>
+<input id="active" type="checkbox" style="width:auto">
+ انتشار محصول در سایت
+</label>
+
+<button id="saveBtn">ذخیره محصول</button>
+<button id="cancelBtn" class="secondary hidden">لغو ویرایش</button>
+<p id="formMessage"></p>
+</div>
+
+<div class="panel">
+<h3>فهرست محصولات</h3>
+<div id="productsList">در حال دریافت محصولات...</div>
+</div>
+</div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://gjyfiznrvxizpoedfceu.supabase.co";
+const SUPABASE_KEY = "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY";
+
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const $ = id => document.getElementById(id);
+let editingProduct = null;
+
+function message(id, text) {
+  $(id).textContent = text;
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  }[c]));
+}
+
+async function login() {
+  message("loginMessage", "در حال ورود...");
+  const {error} = await db.auth.signInWithPassword({
+    email: $("email").value.trim(),
+    password: $("password").value
+  });
+
+  if (error) {
+    message("loginMessage", "خطا در ورود: " + error.message);
+    return;
+  }
+  await checkSession();
+}
+
+async function checkSession() {
+  const {data} = await db.auth.getSession();
+  const loggedIn = !!data.session;
+
+  $("loginPanel").classList.toggle("hidden", loggedIn);
+  $("adminPanel").classList.toggle("hidden", !loggedIn);
+
+  if (loggedIn) await loadProducts();
+}
+
+async function logout() {
+  await db.auth.signOut();
+  location.reload();
+}
+
+async function loadProducts() {
+  $("productsList").textContent = "در حال دریافت محصولات...";
+
+  const {data: products, error} = await db
+    .from("products")
+    .select("*")
+    .order("id", {ascending:false});
+
+  if (error) {
+    $("productsList").textContent = "خطا در دریافت محصولات: " + error.message;
+    return;
+  }
+
+  if (!products.length) {
+    $("productsList").textContent = "هنوز محصولی ثبت نشده است.";
+    return;
+  }
+
+  const {data: photos, error: photoError} = await db
+    .from("product_images")
+    .select("*");
+
+  if (photoError) {
+    $("productsList").textContent = "خطا در دریافت عکس‌ها: " + photoError.message;
+    return;
+  }
+
+  $("productsList").innerHTML = products.map(p => {
+    const images = photos.filter(x => x.product_id === p.id);
+    const imageHTML = images.map(x =>
+      `<img src="${escapeHTML(x.image_url)}" alt="عکس محصول">`
+    ).join("");
+
+    return `
+      <div class="product">
+        <h3>${escapeHTML(p.name)}</h3>
+        <p>برند: ${escapeHTML(p.brand)}</p>
+        <p>مدل: ${escapeHTML(p.model)}</p>
+        <p>قیمت: ${p.price == null ? "ثبت نشده" : Number(p.price).toLocaleString("fa-IR") + " تومان"}</p>
+        <p class="status">${p.is_active ? "منتشر شده" : "منتشر نشده"}</p>
+        <div class="images">${imageHTML}</div>
+        <div class="actions">
+          <button onclick="editProduct(${p.id})">ویرایش</button>
+          <button class="secondary" onclick="toggleProduct(${p.id},${!p.is_active})">
+            ${p.is_active ? "عدم انتشار" : "انتشار"}
+          </button>
+          <button class="danger" onclick="deleteProduct(${p.id})">حذف</button>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+async function uploadPhotos(productId, files) {
+  const urls = [];
+
+  for (const file of files) {
+    if (file.size > 10 * 1024 * 1024) {
+      throw new Error("حجم هر عکس باید حداکثر ۱۰ مگابایت باشد.");
+    }
+
+    if (!["image/jpeg","image/png","image/webp"].includes(file.type)) {
+      throw new Error("فرمت عکس باید JPG یا PNG یا WEBP باشد.");
+    }
+
+    const path = `${productId}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`;
+
+    const {error: uploadError} = await db.storage
+      .from("products")
+      .upload(path, file, {contentType:file.type});
+
+    if (uploadError) throw uploadError;
+
+    const {data} = db.storage.from("products").getPublicUrl(path);
+    urls.push(data.publicUrl);
+
+    const {error: insertError} = await db
+      .from("product_images")
+      .insert({product_id:productId, image_url:data.publicUrl});
+
+    if (insertError) throw insertError;
+  }
+
+  return urls;
+}
+
+async function saveProduct() {
+  const name = $("name").value.trim();
+  const files = Array.from($("photos").files);
+
+  if (!name) {
+    message("formMessage", "نام محصول را وارد کن.");
+    return;
+  }
+
+  $("saveBtn").disabled = true;
+  message("formMessage", "در حال ذخیره محصول...");
+
+  try {
+    const product = {
+      name,
+      brand: $("brand").value.trim(),
+      model: $("model").value.trim(),
+      description: $("description").value.trim(),
+      price: $("price").value === "" ? null : Number($("price").value),
+      is_active: $("active").checked
+    };
+
+    let productId = editingProduct;
+
+    if (editingProduct) {
+      const {error} = await db.from("products")
+        .update(product).eq("id", editingProduct);
+      if (error) throw error;
+    } else {
+      const {data, error} = await db.from("products")
+        .insert(product).select("id").single();
+      if (error) throw error;
+      productId = data.id;
+    }
+
+    if (files.length) {
+      const urls = await uploadPhotos(productId, files);
+
+      if (urls.length) {
+        const {error} = await db.from("products")
+          .update({image_url:urls[0]}).eq("id", productId);
+        if (error) throw error;
+      }
+    }
+
+    message("formMessage", "محصول با موفقیت ذخیره شد.");
+    resetForm();
+    await loadProducts();
+
+  } catch (error) {
+    message("formMessage", "خطا: " + error.message);
+  } finally {
+    $("saveBtn").disabled = false;
+  }
+}
+
+async function editProduct(id) {
+  const {data:p, error} = await db.from("products")
+    .select("*").eq("id", id).single();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  editingProduct = id;
+  $("productId").value = id;
+  $("name").value = p.name || "";
+  $("brand").value = p.brand || "";
+  $("model").value = p.model || "";
+  $("price").value = p.price ?? "";
+  $("description").value = p.description || "";
+  $("active").checked = !!p.is_active;
+  $("photos").value = "";
+
+  $("formTitle").textContent = "ویرایش محصول";
+  $("saveBtn").textContent = "ذخیره تغییرات";
+  $("cancelBtn").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function toggleProduct(id, active) {
+  const {error} = await db.from("products")
+    .update({is_active:active}).eq("id",id);
+
+  if (error) {
+    alert("خطا: " + error.message);
+    return;
+  }
+  await loadProducts();
+}
+
+async function deleteProduct(id) {
+  if (!confirm("از حذف این محصول مطمئنی؟")) return;
+
+  const {error} = await db.from("products").delete().eq("id",id);
+
+  if (error) {
+    alert("خطا: " + error.message);
+    return;
+  }
+
+  await loadProducts();
+}
+
+function resetForm() {
+  editingProduct = null;
+  $("productId").value = "";
+  $("name").value = "";
+  $("brand").value = "";
+  $("model").value = "";
+  $("price").value = "";
+  $("description").value = "";
+  $("photos").value = "";
+  $("active").checked = false;
+  $("formTitle").textContent = "افزودن محصول جدید";
+  $("saveBtn").textContent = "ذخیره محصول";
+  $("cancelBtn").classList.add("hidden");
+}
+
+$("loginBtn").addEventListener("click", login);
+$("logoutBtn").addEventListener("click", logout);
+$("refreshBtn").addEventListener("click", loadProducts);
+$("saveBtn").addEventListener("click", saveProduct);
+$("cancelBtn").addEventListener("click", resetForm);
+
+checkSession();
+</script>
+</body>
+</html>
+
