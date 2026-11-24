@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://mahdibashtin77-collab.github.io/monitor-option/sitemap.xml
+
+Sitemap: https://monitoroption.ir/sitemap.xml
