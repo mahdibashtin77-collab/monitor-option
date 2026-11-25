@@ -120,23 +120,34 @@ async function login() {
 
 
 async function checkSession() {
-  const { data, error } = await db.auth.getSession();
-
   const hash = new URLSearchParams(
     window.location.hash.substring(1)
   );
 
+  const params = new URLSearchParams(
+    window.location.search
+  );
+
   const recoveryError = hash.get("error_description");
-  const isRecovery = hash.get("type") === "recovery";
+  const isRecovery =
+    hash.get("type") === "recovery" ||
+    params.get("type") === "recovery";
 
   if (recoveryError) {
     $("loginPanel").classList.add("hidden");
     $("adminPanel").classList.add("hidden");
 
-    message(
-      "loginMessage",
-      "لینک بازیابی معتبر نیست یا منقضی شده است. دوباره ایمیل بازیابی بفرست."
-    );
+    let box = document.getElementById("resetPanel");
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "resetPanel";
+      box.className = "panel";
+      box.innerHTML = `
+        <h3>خطا در بازیابی رمز</h3>
+        <p>لینک بازیابی منقضی یا نامعتبر است. ایمیل جدید درخواست کن.</p>
+      `;
+      document.querySelector(".container").appendChild(box);
+    }
     return;
   }
 
@@ -152,47 +163,33 @@ async function checkSession() {
       box.className = "panel";
       box.innerHTML = `
         <h3>تعیین رمز عبور جدید</h3>
-        <input id="newPassword" type="password"
-          placeholder="رمز جدید">
-        <input id="confirmPassword" type="password"
-          placeholder="تکرار رمز جدید">
+        <input id="newPassword" type="password" placeholder="رمز جدید">
+        <input id="confirmPassword" type="password" placeholder="تکرار رمز جدید">
         <button id="changePasswordBtn">ثبت رمز جدید</button>
         <p id="resetMessage"></p>
       `;
-
       document.querySelector(".container").appendChild(box);
 
-      document.getElementById("changePasswordBtn")
-        .addEventListener("click", changePassword);
+      $("changePasswordBtn").addEventListener("click", changePassword);
     }
+    return;
+  }
 
+  const { data, error } = await db.auth.getSession();
+
+  if (error) {
+    message("loginMessage", "خطا: " + error.message);
     return;
   }
 
   const loggedIn = !!data.session;
-
   $("loginPanel").classList.toggle("hidden", loggedIn);
   $("adminPanel").classList.toggle("hidden", !loggedIn);
 
   if (loggedIn) await loadProducts();
 }
 
-      document.querySelector(".container").appendChild(box);
 
-      document.getElementById("changePasswordBtn")
-        .addEventListener("click", changePassword);
-    }
-
-    return;
-  }
-
-  const loggedIn = !!data.session;
-
-  $("loginPanel").classList.toggle("hidden", loggedIn);
-  $("adminPanel").classList.toggle("hidden", !loggedIn);
-
-  if (loggedIn) await loadProducts();
-}
 
 async function changePassword() {
   const password = $("newPassword").value;
