@@ -118,11 +118,27 @@ async function login() {
   await checkSession();
 }
 
-async function checkSession() {
-  const { data } = await db.auth.getSession();
 
-  const isRecovery =
-    window.location.hash.includes("type=recovery");
+async function checkSession() {
+  const { data, error } = await db.auth.getSession();
+
+  const hash = new URLSearchParams(
+    window.location.hash.substring(1)
+  );
+
+  const recoveryError = hash.get("error_description");
+  const isRecovery = hash.get("type") === "recovery";
+
+  if (recoveryError) {
+    $("loginPanel").classList.add("hidden");
+    $("adminPanel").classList.add("hidden");
+
+    message(
+      "loginMessage",
+      "لینک بازیابی معتبر نیست یا منقضی شده است. دوباره ایمیل بازیابی بفرست."
+    );
+    return;
+  }
 
   if (isRecovery) {
     $("loginPanel").classList.add("hidden");
@@ -143,6 +159,24 @@ async function checkSession() {
         <button id="changePasswordBtn">ثبت رمز جدید</button>
         <p id="resetMessage"></p>
       `;
+
+      document.querySelector(".container").appendChild(box);
+
+      document.getElementById("changePasswordBtn")
+        .addEventListener("click", changePassword);
+    }
+
+    return;
+  }
+
+  const loggedIn = !!data.session;
+
+  $("loginPanel").classList.toggle("hidden", loggedIn);
+  $("adminPanel").classList.toggle("hidden", !loggedIn);
+
+  if (loggedIn) await loadProducts();
+}
+
       document.querySelector(".container").appendChild(box);
 
       document.getElementById("changePasswordBtn")
