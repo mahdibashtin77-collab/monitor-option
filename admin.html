@@ -90,6 +90,8 @@ small{color:#bbb}
 const SUPABASE_URL = "https://gjyfiznrvxizpoedfceu.supabase.co";
 const SUPABASE_KEY = "sb_publishable_HiXEKqyBxqCgTqH-1Z_q9Q_SeiP41f9";
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+ console.log("SUPABASE:", window.supabase);
+console.log("DB:", db);
 
 const $ = id => document.getElementById(id);
 let editingProduct = null;
