@@ -472,8 +472,29 @@ db.auth.onAuthStateChange((event, session) => {
     );
   }
 });
+async function forgotPassword() {
+  const email = $("email").value.trim();
 
+  if (!email) {
+    message("loginMessage", "ابتدا ایمیل مدیر را وارد کن.");
+    return;
+  }
+
+  message("loginMessage", "در حال ارسال ایمیل بازیابی...");
+
+  const { error } = await db.auth.resetPasswordForEmail(email, {
+    redirectTo: "https://monitoroption.ir/admin.html"
+  });
+
+  if (error) {
+    message("loginMessage", "خطا: " + error.message);
+    return;
+  }
+
+  message("loginMessage", "ایمیل بازیابی ارسال شد.");
+}
 $("loginBtn").addEventListener("click", login);
+$("forgotBtn").addEventListener("click", forgotPassword);
 $("logoutBtn").addEventListener("click", logout);
 $("refreshBtn").addEventListener("click", loadProducts);
 $("saveBtn").addEventListener("click", saveProduct);
