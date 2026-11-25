@@ -433,6 +433,37 @@ function resetForm() {
   $("cancelBtn").classList.add("hidden");
 }
 
+db.auth.onAuthStateChange((event, session) => {
+  if (event !== "PASSWORD_RECOVERY") return;
+
+  $("loginPanel").classList.add("hidden");
+  $("adminPanel").classList.add("hidden");
+
+  let box = $("resetPanel");
+
+  if (!box) {
+    box = document.createElement("div");
+    box.id = "resetPanel";
+    box.className = "panel";
+
+    box.innerHTML = `
+      <h3>تعیین رمز عبور جدید</h3>
+      <input id="newPassword" type="password"
+        placeholder="رمز جدید">
+      <input id="confirmPassword" type="password"
+        placeholder="تکرار رمز جدید">
+      <button id="changePasswordBtn">ثبت رمز جدید</button>
+      <p id="resetMessage"></p>
+    `;
+
+    document.querySelector(".container").appendChild(box);
+
+    $("changePasswordBtn").addEventListener(
+      "click", changePassword
+    );
+  }
+});
+
 $("loginBtn").addEventListener("click", login);
 $("logoutBtn").addEventListener("click", logout);
 $("refreshBtn").addEventListener("click", loadProducts);
