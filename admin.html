@@ -182,12 +182,20 @@ async function checkSession() {
     return;
   }
 
+  const hash = new URLSearchParams(window.location.hash.substring(1));
+  const isRecovery = hash.get("type") === "recovery";
+
+  if (isRecovery && data.session) {
+    $("loginPanel").classList.add("hidden");
+    $("adminPanel").classList.add("hidden");
+    return;
+  }
+
   const loggedIn = !!data.session;
   $("loginPanel").classList.toggle("hidden", loggedIn);
   $("adminPanel").classList.toggle("hidden", !loggedIn);
 
   if (loggedIn) await loadProducts();
-}
 
 
 
