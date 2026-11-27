@@ -461,6 +461,104 @@ function resetForm() {
   $("cancelBtn").classList.add("hidden");
 }
 
+async function loadPortfolio() {
+  const box = $("portfolioList");
+  box.textContent = "در حال دریافت تصاویر...";
+
+  const { data, error } = await db.storage
+    .from("portfolio")
+    .list("", {
+      limit: 100,
+      sortBy: { column: "created_at", order: "desc" }
+    });
+
+  if (error) {
+    box.textContent = "خطا: " + error.message;
+    return;
+  }
+
+  const files = (data || []).filter(f => f.name);
+
+  if (!files.length) {
+    box.textContent = "هنوز تصویری ثبت نشده است.";
+    return;
+  }
+
+  box.innerHTML = files.map(file => {
+    const url = db.storage.from("portfolio")
+      .getPublicUrl(file.name).data.publicUrl;
+
+    return `
+      <div class="product">
+        <img src="${escapeHTML(url)}" alt="نمونه‌کار">
+        <p>${escapeHTML(file.name)}</p>
+        <button class="danger"
+          onclick="deletePortfolioImage('${encodeURIComponent(file.name)}')">
+          حذف تصویر
+        </button>
+    `;
+  }).join("");
+}
+
+async function uploadPortfolio() {
+  const files = Array.from($("portfolioPhotos").files);
+
+  if (!files.length) {
+    message("portfolioMessage", "ابتدا عکس انتخاب کن.");
+    return;
+  }
+
+  const btn = $("uploadPortfolioBtn");
+  btn.disabled = true;
+
+  try {
+    for (const file of files) {
+      if (file.size > 10 * 1024 * 1024) {
+        throw new Error("حجم هر عکس باید حداکثر ۱۰ مگابایت باشد.");
+      }
+
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        throw new Error("فرمت عکس معتبر نیست.");
+      }
+
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const path = Date.now() + "-" + crypto.randomUUID() + "-" + safeName;
+
+      const { error } = await db.storage
+        .from("portfolio")
+        .upload(path, file, { contentType: file.type });
+
+      if (error) throw error;
+    }
+
+    message("portfolioMessage", "تصاویر با موفقیت آپلود شدند.");
+    $("portfolioPhotos").value = "";
+    await loadPortfolio();
+
+  } catch (error) {
+    message("portfolioMessage", "خطا: " + error.message);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function deletePortfolioImage(encodedName) {
+  if (!confirm("از حذف این تصویر مطمئنی؟")) return;
+
+  const name = decodeURIComponent(encodedName);
+
+  const { error } = await db.storage
+    .from("portfolio")
+    .remove([name]);
+
+  if (error) {
+    alert("خطا: " + error.message);
+    return;
+  }
+
+  await loadPortfolio();
+}
+
 db.auth.onAuthStateChange((event, session) => {
   if (event !== "PASSWORD_RECOVERY") return;
 
