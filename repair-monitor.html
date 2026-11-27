@@ -251,6 +251,40 @@ section{padding:17px}
 مسئول فروش: مهدی باشتین
 </div>
 </footer>
+<div class="floating-contact">
+  <span>مسئول فروش: مهدی باشتین</span>
+  <a href="tel:09398789167">☎ تماس با ما</a>
+</div>
 
+<style>
+.floating-contact {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+.floating-contact span {
+  color: #d9b45b;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.floating-contact a {
+  background: #d9b45b;
+  color: #17120a;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 15px #0008;
+}
+</style>
 </body>
 </html>
