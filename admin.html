@@ -215,7 +215,10 @@ async function checkSession() {
   $("loginPanel").classList.toggle("hidden", loggedIn);
   $("adminPanel").classList.toggle("hidden", !loggedIn);
 
-  if (loggedIn) await loadProducts();
+if (loggedIn) {
+  await loadProducts();
+  await loadPortfolio();
+}  
 
 }
 
