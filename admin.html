@@ -84,8 +84,26 @@ small{color:#bbb}
 <div id="productsList">در حال دریافت محصولات...</div>
 </div>
 </div>
-</div>
 
+<div class="panel">
+  <h3>مدیریت تصاویر نمونه‌کارها</h3>
+  <p>مسئول فروش: مهدی باشتین</p>
+
+  <label>انتخاب عکس‌های نمونه‌کار</label>
+  <input id="portfolioPhotos" type="file"
+    accept="image/jpeg,image/png,image/webp" multiple>
+
+  <small>حداکثر حجم هر عکس ۱۰ مگابایت است.</small>
+
+  <button id="uploadPortfolioBtn">آپلود تصاویر نمونه‌کار</button>
+
+  <p id="portfolioMessage"></p>
+
+  <h3>تصاویر بارگذاری‌شده</h3>
+  <div id="portfolioList" class="images">
+    در حال دریافت تصاویر...
+  </div>
+</div>
 <script>
 const SUPABASE_URL = "https://gjyfiznrvxizpoedfceu.supabase.co";
 const SUPABASE_KEY = "sb_publishable_HiXEKqyBxqCgTqH-1Z_q9Q_SeiP41f9";
