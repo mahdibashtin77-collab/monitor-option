@@ -259,43 +259,34 @@ const db = window.supabase.createClient(
 async function loadPublicProducts() {
   const grid = document.getElementById("productsGrid");
 
+  grid.textContent = "در حال دریافت محصولات...";
+
   const { data: products, error } = await db
     .from("products")
-    .select("*")
+    .select("id,name,brand,model,description,price,image_url,is_active")
     .eq("is_active", true)
     .order("id", { ascending: false });
 
   if (error) {
-    grid.textContent = "خطا در دریافت محصولات";
-    console.error(error);
+    console.error("Products error:", error);
+    grid.textContent = "خطای دریافت محصولات: " + error.message;
     return;
   }
 
   if (!products || products.length === 0) {
-    grid.textContent = "در حال حاضر محصولی برای نمایش وجود ندارد.";
-    return;
-  }
-
-  const { data: photos, error: photoError } = await db
-    .from("product_images")
-    .select("product_id,image_url");
-
-  if (photoError) {
-    grid.textContent = "خطا در دریافت تصاویر محصولات";
-    console.error(photoError);
+    grid.textContent = "محصولی برای نمایش پیدا نشد.";
     return;
   }
 
   grid.innerHTML = products.map(p => {
-    const images = photos.filter(x => x.product_id === p.id);
-    const image = p.image_url || images[0]?.image_url || "";
+    const image = p.image_url || "";
 
     return `
       <article class="card">
         ${image ? `
           <img
-            src="${image}"
-            alt="${p.name}"
+            src="${escapeProduct(image)}"
+            alt="${escapeProduct(p.name)}"
             loading="lazy"
             style="width:100%;height:190px;object-fit:contain;border-radius:10px"
           >
