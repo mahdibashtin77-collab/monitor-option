@@ -110,6 +110,16 @@ section{padding:17px}
 </article>
 </div>
 </section>
+  
+<section id="products-section">
+  <h2>محصولات و قیمت مانیتور خودرو</h2>
+  <p class="muted">مشاهده محصولات موجود در مانیتور آپشن</p>
+
+  <div id="productsGrid" class="grid">
+    <p class="muted">در حال دریافت محصولات...</p>
+  </div>
+</section>
+
 
 <section>
 <h2>امکانات مانیتور خودرو</h2>
@@ -234,5 +244,92 @@ section{padding:17px}
   box-shadow: 0 4px 15px #0008;
 }
 </style>
+  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://gjyfiznrvxizpoedfceu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_HiXEKqyBxqCgTqH-1Z_q9Q_SeiP41f9";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function loadPublicProducts() {
+  const grid = document.getElementById("productsGrid");
+
+  const { data: products, error } = await db
+    .from("products")
+    .select("*")
+    .eq("is_active", true)
+    .order("id", { ascending: false });
+
+  if (error) {
+    grid.textContent = "خطا در دریافت محصولات";
+    console.error(error);
+    return;
+  }
+
+  if (!products || products.length === 0) {
+    grid.textContent = "در حال حاضر محصولی برای نمایش وجود ندارد.";
+    return;
+  }
+
+  const { data: photos, error: photoError } = await db
+    .from("product_images")
+    .select("product_id,image_url");
+
+  if (photoError) {
+    grid.textContent = "خطا در دریافت تصاویر محصولات";
+    console.error(photoError);
+    return;
+  }
+
+  grid.innerHTML = products.map(p => {
+    const images = photos.filter(x => x.product_id === p.id);
+    const image = p.image_url || images[0]?.image_url || "";
+
+    return `
+      <article class="card">
+        ${image ? `
+          <img
+            src="${image}"
+            alt="${p.name}"
+            loading="lazy"
+            style="width:100%;height:190px;object-fit:contain;border-radius:10px"
+          >
+        ` : ""}
+
+        <h3>${escapeProduct(p.name)}</h3>
+        <p>برند: ${escapeProduct(p.brand)}</p>
+        <p>مدل: ${escapeProduct(p.model)}</p>
+        <p>${escapeProduct(p.description)}</p>
+
+        <p style="color:#d9b45b;font-weight:bold;margin-top:12px">
+          ${p.price == null
+            ? "تماس برای اطلاع از قیمت"
+            : Number(p.price).toLocaleString("fa-IR") + " تومان"}
+        </p>
+
+        <a class="btn" href="tel:09398789167">تماس برای خرید</a>
+      </article>
+    `;
+  }).join("");
+}
+
+function escapeProduct(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
+
+loadPublicProducts();
+</script>
+
 </body>
 </html>
