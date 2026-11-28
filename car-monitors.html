@@ -397,35 +397,72 @@ async function loadPublicProducts() {
     return;
   }
 
-  grid.innerHTML = products.map(p => {
-    const image = p.image_url || "";
+  
+grid.innerHTML = products.map((p, index) => {
+  const image = p.image_url || "";
 
-    return `
-      <article class="card">
-        ${image ? `
-          <img
-            src="${escapeProduct(image)}"
-            alt="${escapeProduct(p.name)}"
-            loading="lazy"
-            style="width:100%;height:190px;object-fit:contain;border-radius:10px"
-          >
-        ` : ""}
+  return `
+    <button type="button"
+      class="product-card"
+      data-product-index="${index}">
 
-        <h3>${escapeProduct(p.name)}</h3>
-        <p>برند: ${escapeProduct(p.brand)}</p>
-        <p>مدل: ${escapeProduct(p.model)}</p>
-        <p>${escapeProduct(p.description)}</p>
+      ${image ? `
+        <img
+          src="${escapeProduct(image)}"
+          alt="${escapeProduct(p.name)}"
+          loading="lazy"
+        >
+      ` : ""}
 
-        <p style="color:#d9b45b;font-weight:bold;margin-top:12px">
-          ${p.price == null
-            ? "تماس برای اطلاع از قیمت"
-            : Number(p.price).toLocaleString("fa-IR") + " تومان"}
-        </p>
+      <h3>${escapeProduct(p.name)}</h3>
 
-        <a class="btn" href="tel:09398789167">تماس برای خرید</a>
-      </article>
-    `;
-  }).join("");
+      <div class="product-price">
+        ${p.price == null
+          ? "تماس برای قیمت"
+          : Number(p.price).toLocaleString("fa-IR") + " تومان"}
+      </div>
+
+      <div class="product-hint">مشاهده جزئیات محصول</div>
+    </button>
+  `;
+}).join("");
+
+grid.onclick = function(event) {
+  const card = event.target.closest("[data-product-index]");
+  if (!card) return;
+
+  const product = products[Number(card.dataset.productIndex)];
+  if (!product) return;
+
+  const image = product.image_url || "";
+
+  document.getElementById("productModalContent").innerHTML = `
+    ${image ? `
+      <img class="product-modal-image"
+        src="${escapeProduct(image)}"
+        alt="${escapeProduct(product.name)}">
+    ` : ""}
+
+    <h2>${escapeProduct(product.name)}</h2>
+    <p>برند: ${escapeProduct(product.brand)}</p>
+    <p>مدل: ${escapeProduct(product.model)}</p>
+
+    <div class="product-modal-description">
+      ${escapeProduct(product.description)}
+    </div>
+
+    <p class="product-modal-price">
+      ${product.price == null
+        ? "تماس برای اطلاع از قیمت"
+        : Number(product.price).toLocaleString("fa-IR") + " تومان"}
+    </p>
+
+    <a class="btn" href="tel:09398789167">تماس برای خرید</a>
+  `;
+
+  document.getElementById("productModal").hidden = false;
+};
+
 }
 
 function escapeProduct(value) {
