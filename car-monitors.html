@@ -476,6 +476,27 @@ function escapeProduct(value) {
 }
 
 loadPublicProducts();
+ 
+loadPublicProducts();
+
+const productModal = document.getElementById("productModal");
+
+document.getElementById("closeProductModal").onclick = function() {
+  productModal.hidden = true;
+};
+
+productModal.onclick = function(event) {
+  if (event.target === productModal) {
+    productModal.hidden = true;
+  }
+};
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    productModal.hidden = true;
+  }
+});
+
 </script>
 
 </body>
