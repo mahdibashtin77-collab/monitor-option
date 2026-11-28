@@ -172,6 +172,73 @@ section{padding:17px}
   </div>
 </section>
 
+<div id="productModal" class="product-modal" hidden>
+  <div class="product-modal-box">
+    <button type="button" id="closeProductModal" class="product-close">×</button>
+    <div id="productModalContent"></div>
+  </div>
+</div>
+
+<style>
+.product-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #000d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.product-modal[hidden] {
+  display: none;
+}
+
+.product-modal-box {
+  width: min(550px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #151515;
+  border: 1px solid #d9b45b;
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+}
+
+.product-close {
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  background: transparent;
+  color: #d9b45b;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.product-modal-image {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.product-modal-description {
+  color: #ddd;
+  line-height: 2.2;
+}
+
+.product-modal-price {
+  color: #d9b45b;
+  font-size: 19px;
+  font-weight: bold;
+}
+</style>
+
+<section>
+<h2>امکانات مانیتور خودرو</h2>
 
 <section>
 <h2>امکانات مانیتور خودرو</h2>
